@@ -1,0 +1,14 @@
+<?php
+if ($this->buttons):
+	foreach ($this->buttons as $actionButton):
+		$icon = isset($actionButton['icon-class']) ? $actionButton['icon-class'] : '';
+		if ($this->rbac()->isAllowed($this->identity, $actionButton['permission'])) : ?>
+		<a href="<?php echo $actionButton['url'] ?>" class="btn btn-blue btn-xs btn-icon pull-right">
+			<?php echo $actionButton['label']; ?>
+			<?php if($icon) : ?>
+			<i class="<?php echo $icon; ?>"></i>
+			<?php endif; ?>
+		</a>
+	<?php endif; ?>
+<?php endforeach; ?>
+<?php endif;

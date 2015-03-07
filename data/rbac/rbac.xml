@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rbac>
+	<!-- Available system roles-->
+	<roles>
+		<identifier>guest</identifier>
+		<identifier>developer</identifier>
+		<identifier>global</identifier>
+		<identifier>site-admin</identifier>
+	</roles>
+	<!-- any permissions are here -->
+	<permissions>
+		<permission>
+			<identifier>wolfadmin:auth:signin</identifier>
+			<name>Login page</name>
+		</permission>
+		<permission>
+			<identifier>wolfadmin:auth:signout</identifier>
+			<name>Logout page</name>
+		</permission>
+		<permission>
+			<identifier>wolfadmin:dashboard:view</identifier>
+			<name>View Dashboard</name>
+		</permission>
+
+		<permission>
+			<identifier>wolfadmin:user:list</identifier>
+			<name>List users</name>
+		</permission>
+		<permission>
+			<identifier>wolfadmin:user:add</identifier>
+			<name>Add users</name>
+		</permission>
+		<permission>
+			<identifier>wolfadmin:user:manage</identifier>
+			<name>Manage users</name>
+		</permission>
+
+		<permission>
+			<identifier>wolfadmin:navigation:list</identifier>
+			<name>List navigation</name>
+		</permission>
+		<permission>
+			<identifier>wolfadmin:navigation:add</identifier>
+			<name>Add navigation</name>
+		</permission>
+		<permission>
+			<identifier>wolfadmin:navigation:manage</identifier>
+			<name>Manage navigation</name>
+		</permission>
+
+	</permissions>
+
+	<!-- Role permissions-->
+	<role-permissions>
+		<site-admin>
+			<!-- wild card match is allowed. * matches to all permissions-->
+			<!-- any regular expression is also allowed -->
+			<allow>
+				<identifier>wolfadmin:auth:signout</identifier>
+				<identifier>wolfadmin:user:list</identifier>
+				<identifier>wolfadmin:user:add</identifier>
+				<identifier>wolfadmin:user:manage</identifier>
+
+				<identifier>wolfadmin:navigation:list</identifier>
+				<identifier>wolfadmin:navigation:add</identifier>
+				<identifier>wolfadmin:navigation:manage</identifier>
+			</allow>
+		</site-admin>
+		<guest>
+			<allow>
+				<identifier>wolfadmin:auth:signin</identifier>
+			</allow>
+		</guest>
+	</role-permissions>
+</rbac>

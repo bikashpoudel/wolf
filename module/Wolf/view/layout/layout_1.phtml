@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="<?php //echo $this->siteSettings()->get('admin.i18n.default.language'); ?>">
+	<head>
+		<?php
+		echo $this->headMeta()
+			->setCharset('utf-8')
+			->appendName('viewport', 'width=device-width, initial-scale=1.0')
+			->appendName('description', 'Wolf admin')
+			->appendName('author', 'Dev2 Digital')
+			->appendHttpEquiv('X-UA-Compatible', 'IE=edge');
+
+		echo $this->headLink()
+			->appendStylesheet($this->basePath() . '/vendor/neon/assets/js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css')
+			->appendStylesheet($this->basePath() . '/vendor/neon/assets/css/font-icons/entypo/css/entypo.css')
+			->appendStylesheet($this->basePath() . '/vendor/neon/assets/css/font-icons/font-awesome/css/font-awesome.min.css')
+			->appendStylesheet($this->basePath() . '/vendor/neon/assets/css/bootstrap.css')
+			->appendStylesheet($this->basePath() . '/vendor/neon/assets/css/neon-core.css')
+			->appendStylesheet($this->basePath() . '/vendor/neon/assets/css/neon-theme.css')
+			->appendStylesheet($this->basePath() . '/vendor/neon/assets/css/neon-forms.css')
+			->appendStylesheet($this->basePath() . '/vendor/neon/assets/css/custom.css')
+			->appendStylesheet($this->basePath() . '/css/admin/style.css');
+
+		echo $this->headScript()
+			->prependFile($this->basePath() . '/scripts/utils/toaster-notifications.js', 'text/javascript')
+			->prependFile($this->basePath() . '/vendor/neon/assets/js/toastr.js')
+			->prependFile($this->basePath() . '/scripts/utils/utils.js', 'text/javascript')
+			->prependFile($this->basePath() . '/vendor/neon/assets/js/ie8-responsive-file-warning.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+			->prependFile($this->basePath() . 'https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
+			->prependFile($this->basePath() . 'https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js',   'text/javascript', array('conditional' => 'lt IE 9',))
+			->prependFile($this->basePath() . '/vendor/neon/assets/js/neon-custom.js', 'text/javascript')
+			->prependFile($this->basePath() . '/vendor/neon/assets/js/neon-api.js', 'text/javascript')
+			->prependFile($this->basePath() . '/vendor/neon/assets/js/resizeable.js', 'text/javascript')
+			->prependFile($this->basePath() . '/vendor/neon/assets/js/joinable.js', 'text/javascript')
+			->prependFile($this->basePath() . '/vendor/neon/assets/js/bootstrap.js', 'text/javascript')
+			->prependFile($this->basePath() . '/vendor/neon/assets/js/jquery-ui/js/jquery-ui-1.10.3.minimal.min.js', 'text/javascript')
+			->prependFile($this->basePath() . '/vendor/neon/assets/js/gsap/main-gsap.js', 'text/javascript')
+			->prependFile($this->basePath() . '/vendor/angular-1.3.8/angular-route.min.js')
+			->prependFile($this->basePath() . '/vendor/angular-1.3.8/angular.js')
+			->prependFile('//code.jquery.com/jquery-2.1.1.min.js', 'text/javascript');
+		?>
+
+		<title><?php //echo $this->siteSettings()->get('site.title'); ?></title>
+	</head>
+	<body class="page-body">
+		<div class="page-container">
+			<div class="sidebar-menu">
+
+				<header class="logo-env">
+					<div class="logo">
+						<a href="<?php echo $this->url('wolfadmin'); ?>">
+							<img src="<?php echo $this->basePath() . '/images/logo@2xwhitev2.png'?>" width="120" alt="" />
+						</a>
+					</div>
+
+					<div class="sidebar-collapse">
+						<a href="#" class="sidebar-collapse-icon">
+							<i class="entypo-menu"></i>
+						</a>
+					</div>
+
+					<div class="sidebar-mobile-menu visible-xs">
+						<a href="#" class="with-animation">
+							<i class="entypo-menu"></i>
+						</a>
+					</div>
+				</header>
+				<ul id="main-menu" class="">
+					<li id="search">
+						<form>
+							<input type="text" name="q" class="search-input" placeholder="<?php echo $this->translate('Search') ?>..." />
+							<button type="submit"><i class="entypo-search"></i></button>
+						</form>
+					</li>
+					<li>
+						<!-- navigation here -->
+					</li>
+				</ul>
+			</div>
+
+			<!-- Main content -->
+			<div class="main-content wolfadmin-content-area">
+				<div class="row">
+					<div class="col-md-6 col-sm-8 clearfix">
+						<ul class="user-info pull-left pull-none-xsm">
+							<li class="profile-info dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									<?php if ($this->identity) : ?>
+									<img src="<?php echo $this->identity->profilePicture; ?>" alt="" class="img-circle" width="44">
+									<?php echo $this->identity->firstName . ' ' . $this->identity->lastName; ?>
+									<?php endif; ?>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div class="col-md-6 col-sm-4 clearfix">
+						<ul class="list-inline links-list pull-right">
+							<li>
+								<a href="<?php //echo $this->siteSettings()->get('admin.auth.logout.uri'); ?>">
+									Log Out <i class="entypo-logout right"></i>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<hr class="before-content"/>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="col-md-8">
+							<?php
+								echo $this->partial('layout/breadcrumbs.phtml', array(
+									'identity'    => $this->identity,
+									'breadcrumbs' => ($this->breadcrumbs) ? $this->breadcrumbs : array(),
+								));
+							?>
+						</div>
+						<div class="col-md-4 action-buttons">
+							<?php
+								echo $this->partial('layout/action-buttons.phtml', array(
+									'buttons'  => $this->actionButtons,
+									'identity' => $this->identity,
+								));
+							?>
+						</div>
+					</div>
+				</div>
+				<!-- Create tabs-->
+				<div class="row content-panel">
+					<div class="col-md-12">
+						<div class="panel panel-default panel-shadow">
+							<div class="panel-heading">
+								<div class="panel-title">
+									<h4><?php echo ($this->title) ? $this->title : 'Dummy Title'; ?></h4>
+								</div>
+								<div class="panel-options">
+									<ul class="nav nav-tabs">
+									<?php
+										echo $this->partial('layout/tabs.phtml', array(
+											'tabs'     => $this->tabs,
+											'identity' => $this->identity,
+										));
+									?>
+									</ul>
+								</div>
+							</div>
+
+							<div class="panel-body">
+								<?php echo $this->content; ?>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<footer class="main">
+					&copy; 2014 <a href="<?php echo $this->url('wolfadmin'); ?>"><?php //echo $this->siteSettings()->get('site.title'); ?></a>
+				</footer>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var toasterOptions = {
+				'closeButton'     : true,
+				'showDuration'    : "300",
+				'hideDuration'    : "1000",
+				'timeOut'         : "5000",
+				'extendedTimeOut' : "1000",
+				'showEasing'      : "swing",
+				'hideEasing'      : "linear",
+				'showMethod'      : "fadeIn",
+				'hideMethod'      : "fadeOut"
+			};
+
+			<?php foreach ($this->flashMessenger()->getSuccessMessages() as $successMessage): ?>
+				toastr.success('<?php echo htmlspecialchars($successMessage, ENT_QUOTES); ?>', toasterOptions);
+			<?php endforeach; ?>
+
+			<?php foreach ($this->flashMessenger()->getErrorMessages() as $errorMessage): ?>
+				toastr.error('<?php echo htmlspecialchars($errorMessage, ENT_QUOTES); ?>', toasterOptions);
+			<?php endforeach; ?>
+		});
+	</script>
+</html>

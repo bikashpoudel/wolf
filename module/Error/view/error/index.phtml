@@ -1,0 +1,94 @@
+<html>
+	<head>
+		<?php
+		echo $this->headLink()
+			->appendStylesheet($this->basePath() . '/vendor/neon/assets/js/jquery-ui/css/no-theme/jquery-ui-1.10.3.custom.min.css')
+			->appendStylesheet($this->basePath() . '/vendor/neon/assets/css/font-icons/entypo/css/entypo.css')
+			->appendStylesheet($this->basePath() . '/vendor/neon/assets/css/bootstrap.css')
+			->appendStylesheet($this->basePath() . '/vendor/neon/assets/css/neon-core.css')
+			->appendStylesheet($this->basePath() . '/vendor/neon/assets/css/neon-theme.css')
+			->appendStylesheet($this->basePath() . '/vendor/neon/assets/css/neon-forms.css')
+			->appendStylesheet($this->basePath() . '/vendor/neon/assets/css/custom.css');
+		?>
+	</head>
+	<body class="page-body loaded" data-url="<?php echo $this->serverUrl(); ?>">
+		<div class="col-sm-12">
+			<div class="main-content">
+
+				<div class="page-error-404">
+					<div class="error-symbol">
+						<i class="entypo-attention"></i>
+					</div>
+
+					<div class="error-text">
+						<h2>500</h2>
+						<?php echo $this->translate('An error occurred') ?>
+					</div>
+
+				<?php if ($this->message): ?>
+					<h2><?php echo $this->message; ?></h2>
+				<?php endif; ?>
+				<?php if (isset($this->display_exceptions) && $this->display_exceptions): ?>
+
+					<?php if (isset($this->exception) && $this->exception instanceof Exception): ?>
+						<hr/>
+						<h2><?php echo $this->translate('Additional information') ?>:</h2>
+						<h3><?php echo get_class($this->exception); ?></h3>
+						<dl>
+							<dt><?php echo $this->translate('File') ?>:</dt>
+							<dd>
+								<pre class="prettyprint linenums"><?php echo $this->exception->getFile() ?>:<?php echo $this->exception->getLine() ?></pre>
+							</dd>
+							<dt><?php echo $this->translate('Message') ?>:</dt>
+							<dd>
+								<pre class="prettyprint linenums"><?php echo $this->escapeHtml($this->exception->getMessage()) ?></pre>
+							</dd>
+							<dt><?php echo $this->translate('Stack trace') ?>:</dt>
+							<dd>
+								<pre class="prettyprint linenums" style="text-align: left;"><?php echo $this->escapeHtml($this->exception->getTraceAsString()) ?></pre>
+							</dd>
+						</dl>
+						<?php
+						$e = $this->exception->getPrevious();
+						if ($e) :
+							?>
+							<hr/>
+							<h2><?php echo $this->translate('Previous exceptions') ?>:</h2>
+							<ul class="unstyled">
+			<?php while ($e) : ?>
+									<li>
+										<h3><?php echo get_class($e); ?></h3>
+										<dl>
+											<dt><?php echo $this->translate('File') ?>:</dt>
+											<dd>
+												<pre class="prettyprint linenums"><?php echo $e->getFile() ?>:<?php echo $e->getLine() ?></pre>
+											</dd>
+											<dt><?php echo $this->translate('Message') ?>:</dt>
+											<dd>
+												<pre class="prettyprint linenums"><?php echo $this->escapeHtml($e->getMessage()) ?></pre>
+											</dd>
+											<dt><?php echo $this->translate('Stack trace') ?>:</dt>
+											<dd>
+												<pre class="prettyprint linenums" style="text-align: left;"><?php echo $this->escapeHtml($e->getTraceAsString()) ?></pre>
+											</dd>
+										</dl>
+									</li>
+									<?php
+									$e = $e->getPrevious();
+								endwhile;
+								?>
+							</ul>
+						<?php endif; ?>
+
+	<?php else: ?>
+
+						<h3><?php echo $this->translate('No Exception available') ?></h3>
+
+					<?php endif ?>
+
+<?php endif ?>
+			</div>
+			</div>
+		</div>
+	</body>
+</html>

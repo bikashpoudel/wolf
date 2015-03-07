@@ -1,0 +1,26 @@
+<div class="breadcrumb-panel">
+	<ol class="breadcrumb main-breadcrumb bc-3">
+		<li>
+			<a href="<?php //echo $this->siteSettings()->get('admin.auth.postlogin.redirect.uri') ?>"><i class="entypo-home"></i>Home</a>
+		</li>
+		<?php foreach ($this->breadcrumbs as $key => $breadcrumb):
+			$url        = isset($breadcrumb['url']) ? $breadcrumb['url'] : false;
+			$label      = isset($breadcrumb['label']) ? $breadcrumb['label'] : '';
+			$active     = isset($breadcrumb['active']) ? $breadcrumb['active'] : false;
+			$permission = isset($breadcrumb['permission']) ? $breadcrumb['permission'] : false;
+			if ($permission):
+				$allowed = $this->rbac()->isAllowed($this->identity, $permission);
+			else:
+				$allowed = true;
+			endif;
+		?>
+			<li>
+				<?php if($active): ?>
+				<strong><?php echo $label ?></strong>
+				<?php else: ?>
+				<a href="<?php echo $url; ?>"><?php echo $label; ?></a>
+				<?php endif; ?>
+			</li>
+		<?php endforeach; ?>
+	</ol>
+</div>

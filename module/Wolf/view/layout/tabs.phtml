@@ -1,0 +1,13 @@
+<?php
+if ($this->tabs):
+	foreach ($this->tabs as $tab):
+		$active = ($tab['active']) ? $tab['active'] : false;
+		if ($this->rbac()->isAllowed($this->identity, $tab['permission'])) : ?>
+		<li class="<?php echo ($active) ? 'active' : ''; ?>">
+			<a href="<?php echo $tab['url'] ?>">
+				<?php echo $tab['label']; ?>
+			</a>
+		</li>
+	<?php endif; ?>
+<?php endforeach; ?>
+<?php endif;

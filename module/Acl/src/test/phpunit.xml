@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit bootstrap="/Applications/MAMP/htdocs/wolf-local/module/Wolf/src/Wolf/Test/Boostrap.php" colors="true">
+    <testsuites>
+        <testsuite name="acl">
+            <directory>./AclTest</directory>
+        </testsuite>
+    </testsuites>
+
+	<php>
+        <var name="DB_DSN" value="mysql:dbname=wolf_unit_test;host=localhost" />
+        <var name="DB_USER" value="webuser" />
+        <var name="DB_PASSWD" value="w3lfw3bus3r" />
+        <var name="DB_DBNAME" value="wolf_unit_test" />
+    </php>
+</phpunit>
